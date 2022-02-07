@@ -100,7 +100,7 @@ def resource_path(relative_path: str) -> str:
 # In[ ]:
 
 
-print("Welcome to the Automated Booking System!\n")
+print("\n========================================\nWelcome to the Automated Booking System!\n========================================\n")
 options = webdriver.ChromeOptions()
 options.headless = True
 driver = webdriver.Chrome(executable_path=os.path.join(os.path.dirname(__file__), "driver/chromedriver"), options=options)
