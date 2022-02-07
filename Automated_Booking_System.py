@@ -14,7 +14,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from getpass import getpass
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
 import sys
 import os
 import tqdm as tqdm
