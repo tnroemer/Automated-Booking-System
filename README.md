@@ -26,4 +26,8 @@ The script runs by sending requests via a browser to the booking system. To do t
 
  # Bugs
  
-  The Chrome driver together with Selenium (which we use to send the requests) has a bug which does not allow you to pass strings with special characters to the driver. This means that your password cannot contain any of those for the script to run through. You can follow the debugging status [here](https://github.com/SeleniumHQ/selenium/issues/10318).
+  The Chrome driver together with Selenium (which we use to send the requests) has a bug which does not allow you to pass strings with special characters to the driver. This means that your password cannot contain any of those for the script to run through. You can follow the debugging status [here](https://github.com/SeleniumHQ/selenium/issues/10318) and [here](https://bugs.chromium.org/p/chromedriver/issues/detail?id=3999).
+ 
+ Edit:
+ 
+ Might be the case that you can use [chromedriver97](https://chromedriver.storage.googleapis.com/index.html?path=97.0.4692.71/) to avoid the issue all else equal.
