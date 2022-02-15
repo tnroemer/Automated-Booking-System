@@ -118,7 +118,7 @@ driver.get("https://intranet.nuff.ox.ac.uk/")
 
 
 username = str(input("Username: "))
-print("Note that the terminal will not show you any indicator for whether you typed anything or not for the password")
+print("\nNote two things: (1) The terminal will not give you any indication for whether you are typing or not for the password and (2) Due to a bug in the chromedriver your password cannot contain any special characters until the bug is fixed!\n")
 passw = getpass("Password: ")
 signup = int(input("Which meals do you whish to sign up for?\n1: Lunch\n2: Dinner\n3: Both\n\n"))
 print("")
