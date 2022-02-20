@@ -1,11 +1,18 @@
 # Automated Booking System
  Allows you to automatically sign up to meals at Nuffield College.
 
+# Update 20/02/2022
+
+- Brunch integration
+- There seemed to be an issue with the Chrome driver such that some elements were not clickable when using the 'headless' options. I changed that so that there will be a window opening now when you run the script. Just ignore the window and do everything via the command line as per usual, i.e. when the window is opening go back to the command line and put your preferences in.
+
 # Dependencies
 
 To be able to run the script you need to install the required dependencies in your virtual environment. Do this by running:
 
 `pip install selenium`
+
+`pip install pandas`
 
 `pip install regex`
 

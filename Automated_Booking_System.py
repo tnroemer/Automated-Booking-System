@@ -3,6 +3,7 @@
 
 # In[1]:
 
+
 from selenium.webdriver.common.by import By
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -14,16 +15,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from getpass import getpass
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.chrome.service import Service
-#from webdriver_manager.chrome import ChromeDriverManager
+import pandas as pd
 import sys
 import os
 import tqdm as tqdm
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning) 
-#pwinput
 
 
-# In[ ]:
+# In[16]:
 
 
 def log_in(name, passw):
@@ -34,44 +34,41 @@ def log_in(name, passw):
     element2.clear()
     element2.send_keys(passw)
     element2.send_keys(Keys.RETURN)
-    time.sleep(3)
+    time.sleep(2)
 
 
-# In[ ]:
+# In[31]:
 
 
 def get_ids(signup):
-    global singups
-    if signup == 1:
-        singups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30"]
-    elif signup == 2:
+    if signup[0] == 1:
+        signups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30"]
+    elif signup[0] == 2:
         signups = ["Low Table: 18:00-19:00"]
-    elif signup == 3:
+    elif signup[0] == 3:
         signups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30","Low Table: 18:00-19:00"]
+    if signup[1] == 1:
+        signups.append("Sunday Brunch")
+        
     driver.get("https://meal.nuff.ox.ac.uk/Home/")
     try:
         elem = WebDriverWait(driver, 2).until(EC.title_contains("EBS - Events List"))
     finally:
         time.sleep(2)
         element = driver.find_elements(By.CSS_SELECTOR, "td:nth-child(3)")
-        global event
         event = [e.text for e in element]
         element = driver.find_elements(By.CSS_SELECTOR, "td:nth-child(7) .btn-item-action")
-        global ids
         ids = [int(re.findall("\d+",e.get_attribute("onclick"))[0]) for e in element]
         element = driver.find_elements(By.CSS_SELECTOR, "td:nth-child(2) .table-cell-content")
-        global dates
         dates = [re.search(r'\d{2}/\d{2}/\d{2}', e.text).group() for e in element]
         condition = [e in signups for e in event]
-        ids = [ids for ids,condition in zip(ids,condition) if condition == True]
-        dates = [dates for dates,condition in zip(dates,condition) if condition == True]
-        event = [event for event,condition in zip(event,condition) if condition == True]
-        #df = pd.DataFrame(zip(dates,event,ids), columns=["Date","Event","ID"])
-        #df = df[df['Event'].isin(signups)]
-        #df.index = list(range(len(df)))
+        df = pd.DataFrame(zip(dates,event,ids), columns=["Date","Event","ID"])
+        df = df[df['Event'].isin(signups)]
+        df.index = list(range(len(df)))
+        return(df)
 
 
-# In[ ]:
+# In[18]:
 
 
 def sign_up(page, diet):
@@ -86,7 +83,7 @@ def sign_up(page, diet):
     driver.find_element(By.CSS_SELECTOR, ".btn-form-action:nth-child(5)").click()
 
 
-# In[ ]:
+# In[19]:
 
 
 def resource_path(relative_path: str) -> str:
@@ -97,71 +94,58 @@ def resource_path(relative_path: str) -> str:
     return os.path.join(base_path, relative_path)
 
 
-# In[ ]:
+# In[25]:
 
 
 print("\n========================================\nWelcome to the Automated Booking System!\n========================================\n")
 options = webdriver.ChromeOptions()
 options.headless = True
-driver = webdriver.Chrome(executable_path=os.path.join(os.path.dirname(__file__), "driver/chromedriver"), options=options)
-#driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome()
+#driver = webdriver.Chrome(options=options)
+#driver = webdriver.Chrome(executable_path=os.path.join(os.path.dirname(__file__), "driver/chromedriver"), options=options)
 actions = ActionChains(driver)
 
 
-# In[ ]:
+# In[26]:
 
 
 driver.get("https://intranet.nuff.ox.ac.uk/")
 
-
-# In[ ]:
-
-
 username = str(input("Username: "))
-print("\nNote two things: (1) The terminal will not give you any indication for whether you are typing or not for the password and (2) Due to a bug in the chromedriver your password cannot contain any special characters until the bug is fixed!\n")
+print("\nNote that password has no ‘typing’ indicator in the terminal\n")
 passw = getpass("Password: ")
 signup = int(input("Which meals do you whish to sign up for?\n1: Lunch\n2: Dinner\n3: Both\n\n"))
 print("")
+brunch = int(input("Brunch?\n1: Yes\n2: No\n\n"))
+print("")
+signup = [signup, brunch]
 diet = int(input("Dietary preference:\n1: NA\n2: Vegetarian\n3: Vegan\n4: No Red Meat\n5: Non Dairy\n6: Fruit Plate for Pudding\n7: Fish Eating Vegetarian\n8: No Pork\n9: No Shellfish\n10: Gluten Free\n\n"))
 print("")
-
-
-# In[ ]:
-
 
 log_in(username,passw)
 
 
-# In[ ]:
+# In[32]:
 
 
-get_ids(signup)
+ids = get_ids(signup)
 
 
-# In[ ]:
+# In[35]:
 
 
 pbar = tqdm.tqdm(total=len(ids))
 for i in range(len(ids)):
-    time.sleep(2.5)
-    sign_up(ids[i],diet)
-    pbar.write("Signed up for " + event[i].split(":",1)[0] + " on " + dates[i])
+    time.sleep(2)
+    sign_up(ids.ID[i],diet)
+    pbar.write("Signed up for " + ids.Event[i].split(":",1)[0] + " on " + ids.Date[i])
     pbar.update(1)
-    
-#for i in tqdm.tqdm(range(len(ids)), position=0, leave=True):
-#    time.sleep(2.5)
-#    sign_up(ids[i],diet)
-#    print("Signed up for " + event[i].split(":",1)[0] + " on " + dates[i])
 
 
-# In[ ]:
+# In[36]:
 
 
 print("Thank you for using the Automated Booking System!")
 driver.quit()
-
-
-# In[ ]:
-
-
 sys.exit()
+
