@@ -100,8 +100,8 @@ def resource_path(relative_path: str) -> str:
 print("\n========================================\nWelcome to the Automated Booking System!\n========================================\n")
 options = webdriver.ChromeOptions()
 options.headless = True
-driver = webdriver.Chrome()
-#driver = webdriver.Chrome(options=options)
+#driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path=os.path.join(os.path.dirname(__file__), "driver/chromedriver"))
 #driver = webdriver.Chrome(executable_path=os.path.join(os.path.dirname(__file__), "driver/chromedriver"), options=options)
 actions = ActionChains(driver)
 
