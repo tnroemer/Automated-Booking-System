@@ -144,8 +144,6 @@ for i in range(len(ids)):
 
 # In[36]:
 
-
-print("Thank you for using the Automated Booking System!")
 driver.quit()
 sys.exit()
 
