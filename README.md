@@ -40,4 +40,13 @@ The script runs by sending requests via a browser to the booking system. To do t
 
     - Edit: Might be the case that you can use [chromedriver97](https://chromedriver.storage.googleapis.com/index.html?path=97.0.4692.71/) to avoid the issue all else equal.
 
+- If you get the error `selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":"[id="userNameInput"]"}`, run:
+ 
+`pip uninstall urllib3`
+ 
+`pip uninstall chardet`
+ 
+`pip install requests`
+ 
+ and see whether that fixes it
 - Please send error trails if there are any other issues coming up
