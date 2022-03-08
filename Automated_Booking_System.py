@@ -42,11 +42,11 @@ def log_in(name, passw):
 
 def get_ids(signup):
     if signup[0] == 1:
-        signups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30"]
+        signups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30", "Saturday Lunch"]
     elif signup[0] == 2:
         signups = ["Low Table: 18:00-19:00"]
     elif signup[0] == 3:
-        signups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30","Low Table: 18:00-19:00"]
+        signups = ["Lunch: 11:45-13:30", "Lunch: 12:00-13:30","Low Table: 18:00-19:00", "Saturday Lunch"]
     if signup[1] == 1:
         signups.append("Sunday Brunch")
         
