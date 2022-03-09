@@ -1,8 +1,5 @@
 # Automated Booking System
  Allows you to automatically sign up to meals at Nuffield College.
- 
-## New Weekend lunch booking system
-- The distinction between residents and non-residents with respect to weekend lunch booking is currently not implemented. Implementation will follow in the coming days.
 
 ## Update 20/02/2022
 
@@ -30,6 +27,10 @@ The script runs by sending requests via a browser to the booking system. To do t
 <p align="center">
     <img src="images/example.png" width="650">
 <p>
+
+## Suggested Edits
+- If you are always signing up for the same meals with the same dietary requirements, replace the query in the code with your appropriate choice
+- If you want to skip always typing in your username/password, you can create an (encrypted) JSON file from which you can load log-in information
 
 ## Bugs
 
