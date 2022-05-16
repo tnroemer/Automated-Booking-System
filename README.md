@@ -1,10 +1,9 @@
 # Automated Booking System
  Allows you to automatically sign up to meals at Nuffield College.
 
-## Update 20/02/2022
+## Note 16/05/2022
 
-- Brunch integration
-- There seemed to be an issue with the Chrome driver such that some elements were not clickable when using the `headless` options. I changed that so that there will be a window opening now when you run the script. Just ignore the window (or minimize it) and do everything via the command line as per usual, i.e. when the window is opening go back to the command line and put your meal and dietary preferences in.
+- If you update Google Chrome, you might have to download the according version of the Chrome Driver for the script to be executable. See below for the link to the download portal.
 
 ## Dependencies
 
